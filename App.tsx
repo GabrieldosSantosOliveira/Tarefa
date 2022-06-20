@@ -3,11 +3,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 
 import AddCard from "./src/components/add";
-import light from "./src/components/theme/light";
+import dark from "./src/components/theme/dark";
+import ligth from "./src/components/theme/ligth";
+
 export default function App() {
   return (
-    <ThemeProvider theme={light}>
-      <AddCard />
+    <ThemeProvider theme={ligth}>
+      <AddCard type="primary" />
     </ThemeProvider>
   );
 }
