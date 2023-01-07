@@ -1,12 +1,9 @@
-import { useState } from "react";
-import { Switch } from "react-native";
-
-import { View, Text } from "./styles";
+import * as S from './styles';
 export const Header = () => {
   return (
-    <View>
-      <Text>TCC COMUNITY</Text>
-    </View>
+    <S.View>
+      <S.Text>TCC COMUNITY</S.Text>
+    </S.View>
   );
 };
 export default Header;
