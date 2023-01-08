@@ -1,4 +1,4 @@
-package com.tarefa.newarchitecture.components;
+package com.gabriel85.Tarefa.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
