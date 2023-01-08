@@ -1,11 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import { AddCard } from './../screens/add';
+import { GeneratePasswordScreen } from '@screens/GeneratePassword';
 const { Navigator, Screen } = createBottomTabNavigator();
 export const TabNavigation = () => {
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="Home" component={AddCard} />
+      <Screen name="home" component={GeneratePasswordScreen} />
     </Navigator>
   );
 };
