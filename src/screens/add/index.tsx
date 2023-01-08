@@ -4,8 +4,8 @@ import { Vibration, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import uuid from 'react-native-uuid';
 
+import Header from '../../components/header';
 import { GetRealm } from '../../databases/realm';
-import Header from '../header';
 import * as S from './styles';
 
 export const AddCard = () => {
