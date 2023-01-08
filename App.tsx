@@ -1,15 +1,18 @@
+import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
+import { Routes } from '@routes/index';
+import { Loading } from '@screens/Loading';
+import ligth from '@styles/theme/ligth';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components/native';
 
-import { Routes } from './src/routes';
-import AddCard from './src/screens/add';
-import dark from './src/styles/theme/dark';
-import ligth from './src/styles/theme/ligth';
-
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+  });
   return (
     <ThemeProvider theme={ligth}>
-      <Routes />
+      <StatusBar style="auto" />
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
