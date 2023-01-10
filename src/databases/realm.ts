@@ -1,9 +1,9 @@
-import Realm from "realm";
+import Realm from 'realm';
 
-import { CardSchema } from "./schemas/CardSchema";
+import { PasswordSchema } from './schemas/CardSchema';
 
-export const GetRealm = async () =>
+export const getRealm = async () =>
   await Realm.open({
-    path: "rn",
-    schema: [CardSchema],
+    path: 'app-password',
+    schema: [PasswordSchema],
   });
