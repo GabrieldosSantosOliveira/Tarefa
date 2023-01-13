@@ -5,7 +5,6 @@ export const PasswordSchema = {
     password: 'string',
     application: 'string?',
     emailOrPhone: 'string?',
-    surname: 'string',
     created_at: 'date',
   },
   primaryKey: '_id',
@@ -16,6 +15,5 @@ export interface IPasswordSchema {
   password: string;
   application?: string;
   emailOrPhone?: string;
-  surname: string;
   created_at: Date;
 }
