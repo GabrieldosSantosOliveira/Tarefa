@@ -1,6 +1,6 @@
 import Realm from 'realm';
 
-import { PasswordSchema } from './schemas/CardSchema';
+import { PasswordSchema } from './schemas/PasswordSchema';
 
 export const getRealm = async () =>
   await Realm.open({
