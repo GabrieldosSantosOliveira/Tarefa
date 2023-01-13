@@ -2,57 +2,77 @@ import { Button } from '@components/Button';
 import { Header } from '@components/Header';
 import { Input } from '@components/Input';
 import { getRealm } from '@databases/realm';
-import { IPasswordSchema } from '@databases/schemas/CardSchema';
+import { IPasswordSchema } from '@databases/schemas/PasswordSchema';
 import { Feather } from '@expo/vector-icons';
+import { usePassword } from '@hooks/usePassword';
 import { useNavigation } from '@react-navigation/native';
 import { generatePassword } from '@services/generatePassword';
 import { LinearGradient } from 'expo-linear-gradient';
 import { VStack, Text, HStack, Pressable, useToast } from 'native-base';
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import uuid from 'react-native-uuid';
 interface IForm {
   application: string;
   emailOrPhone: string;
-  surname: string;
 }
 export const GeneratePasswordScreen = () => {
+  const settingsPassword = usePassword();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { navigate } = useNavigation();
   const toast = useToast();
   const { handleSubmit, control } = useForm<IForm>({
     defaultValues: {
       application: '',
-      surname: '',
       emailOrPhone: '',
     },
   });
   const onHandleGeneratePassword = async ({
     application,
     emailOrPhone,
-    surname,
   }: IForm) => {
-    const realm = await getRealm();
-    realm.write(() => {
-      realm.create<IPasswordSchema>('Password', {
-        _id: uuid.v4().toString(),
-        surname,
-        application,
-        emailOrPhone,
-        created_at: new Date(),
-        password: generatePassword({
-          length: 50,
-          hasLowerCase: true,
-          hasUpperCase: true,
-          hasNumbers: true,
-          hasSymbols: true,
-        }),
+    try {
+      const {
+        hasLowerCase,
+        hasNumbers,
+        hasSymbols,
+        hasUpperCase,
+        lengthPassword,
+      } = settingsPassword;
+      setIsLoading(true);
+      const realm = await getRealm();
+      realm.write(() => {
+        realm.create<IPasswordSchema>('Password', {
+          _id: uuid.v4().toString(),
+          application,
+          emailOrPhone,
+          created_at: new Date(),
+          password: generatePassword({
+            length: lengthPassword,
+            hasLowerCase,
+            hasUpperCase,
+            hasNumbers,
+            hasSymbols,
+          }),
+        });
       });
-    });
+      console.log(
+        '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n',
+      );
+      realm.objects('Password').map((password) => {
+        console.log(password);
+      });
 
-    toast.closeAll();
-    toast.show({
-      title: 'Senha gerada com sucesso',
-      bg: 'green.500',
-    });
+      toast.closeAll();
+      toast.show({
+        title: 'Senha gerada com sucesso',
+        bg: 'green.500',
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <VStack flex={1} safeArea>
@@ -108,22 +128,12 @@ export const GeneratePasswordScreen = () => {
             );
           }}
         />
-        <Controller
-          name="surname"
-          control={control}
-          render={({ field: { onBlur, onChange, value } }) => {
-            return (
-              <Input
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                mt={4}
-                placeholder="Apelido"
-              />
-            );
-          }}
-        />
-        <Button onPress={handleSubmit(onHandleGeneratePassword)} mt={4}>
+
+        <Button
+          isLoading={isLoading}
+          onPress={handleSubmit(onHandleGeneratePassword)}
+          mt={4}
+        >
           Salvar senha
         </Button>
       </VStack>
