@@ -1,15 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { ThemeProvider } from 'styled-components/native';
-
-import { Routes } from './src/routes';
-import AddCard from './src/screens/add';
-import dark from './src/styles/theme/dark';
-import ligth from './src/styles/theme/ligth';
-
+import { Loading } from '@components/Loading';
+import { PasswordProvider } from '@context/PasswordContext';
+import { ThemeProvider } from '@context/ThemeContext';
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from '@expo-google-fonts/roboto';
+import { Routes } from '@routes/index';
+import { THEME } from '@styles/theme';
+import { NativeBaseProvider, StatusBar } from 'native-base';
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
   return (
-    <ThemeProvider theme={ligth}>
-      <Routes />
-    </ThemeProvider>
+    <NativeBaseProvider theme={THEME}>
+      <PasswordProvider>
+        <ThemeProvider>
+          <StatusBar translucent backgroundColor="#27272a" />
+          {fontsLoaded ? <Routes /> : <Loading />}
+        </ThemeProvider>
+      </PasswordProvider>
+    </NativeBaseProvider>
   );
 }
