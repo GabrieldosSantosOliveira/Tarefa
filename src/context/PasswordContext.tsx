@@ -1,11 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createContext, ReactNode, FC, useEffect, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  FC,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+  startTransition,
+} from 'react';
 interface IPasswordContext {
-  lengthPassword: number;
   hasLowerCase: boolean;
   hasUpperCase: boolean;
   hasNumbers: boolean;
   hasSymbols: boolean;
+  lengthPassword: number;
+  setSettings: Dispatch<SetStateAction<Settings>>;
 }
 export const PasswordContext = createContext<IPasswordContext>(
   {} as IPasswordContext,
@@ -13,9 +23,10 @@ export const PasswordContext = createContext<IPasswordContext>(
 interface PasswordProviderProps {
   children: ReactNode;
 }
+export type Settings = Omit<IPasswordContext, 'setSettings'>;
+
 export const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
-  type Settings = IPasswordContext;
-  const [settings, setSettings] = useState<Settings>();
+  const [settings, setSettings] = useState<Settings>({} as Settings);
 
   useEffect(() => {
     async function loadStorageData() {
@@ -23,8 +34,7 @@ export const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
         const settingsStorage = await AsyncStorage.getItem(
           '@password-generator:settings',
         );
-        const settings = JSON.parse(settingsStorage);
-        if (!settings) {
+        if (!settingsStorage) {
           const defaultSettings: Settings = {
             hasLowerCase: false,
             hasNumbers: true,
@@ -38,7 +48,7 @@ export const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
           );
           setSettings(defaultSettings);
         } else {
-          setSettings(settings);
+          setSettings(JSON.parse(settingsStorage));
         }
       } catch (err) {
         console.log(err);
@@ -46,8 +56,29 @@ export const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
     }
     loadStorageData();
   }, []);
+
+  useEffect(() => {
+    async function setDefaultSettings() {
+      try {
+        await AsyncStorage.setItem(
+          '@password-generator:settings',
+          JSON.stringify(settings),
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    startTransition(() => {
+      setDefaultSettings();
+    });
+  }, [settings]);
   return (
-    <PasswordContext.Provider value={settings}>
+    <PasswordContext.Provider
+      value={{
+        ...settings,
+        setSettings,
+      }}
+    >
       {children}
     </PasswordContext.Provider>
   );
