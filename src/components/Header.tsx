@@ -3,9 +3,10 @@ import { HStack, IconButton, Box, Heading } from 'native-base';
 import { CaretLeft } from 'phosphor-react-native';
 interface HeaderProps {
   title: string;
+  showBackButton?: boolean;
 }
-export const Header = ({ title }: HeaderProps) => {
-  const { goBack, canGoBack } = useNavigation();
+export const Header = ({ title, showBackButton = false }: HeaderProps) => {
+  const { goBack } = useNavigation();
   const EmptyBoxSpace = () => <Box w={6} h={6} />;
   return (
     <HStack
@@ -15,9 +16,9 @@ export const Header = ({ title }: HeaderProps) => {
       alignItems="center"
       justifyContent="space-between"
     >
-      {canGoBack() ? (
+      {showBackButton ? (
         <IconButton
-          icon={<CaretLeft size={30} color="white" />}
+          icon={<CaretLeft weight="bold" size={24} color="white" />}
           onPress={goBack}
         />
       ) : (
