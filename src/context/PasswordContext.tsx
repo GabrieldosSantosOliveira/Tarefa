@@ -1,6 +1,5 @@
-import { getRealm } from '@databases/realm';
-import { createContext, ReactNode, FC, useEffect } from 'react';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createContext, ReactNode, FC, useEffect, useState } from 'react';
 interface IPasswordContext {
   lengthPassword: number;
   hasLowerCase: boolean;
@@ -15,24 +14,40 @@ interface PasswordProviderProps {
   children: ReactNode;
 }
 export const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
+  type Settings = IPasswordContext;
+  const [settings, setSettings] = useState<Settings>();
+
   useEffect(() => {
-    console.log('PasswordProvider');
     async function loadStorageData() {
-      const realm = await getRealm();
-      realm.objects('Password');
+      try {
+        const settingsStorage = await AsyncStorage.getItem(
+          '@password-generator:settings',
+        );
+        const settings = JSON.parse(settingsStorage);
+        if (!settings) {
+          const defaultSettings: Settings = {
+            hasLowerCase: false,
+            hasNumbers: true,
+            hasSymbols: true,
+            hasUpperCase: true,
+            lengthPassword: 10,
+          };
+          await AsyncStorage.setItem(
+            '@password-generator:settings',
+            JSON.stringify(defaultSettings),
+          );
+          setSettings(defaultSettings);
+        } else {
+          setSettings(settings);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
     loadStorageData();
   }, []);
   return (
-    <PasswordContext.Provider
-      value={{
-        hasLowerCase: false,
-        hasNumbers: true,
-        hasSymbols: true,
-        hasUpperCase: true,
-        lengthPassword: 10,
-      }}
-    >
+    <PasswordContext.Provider value={settings}>
       {children}
     </PasswordContext.Provider>
   );
