@@ -1,4 +1,4 @@
-package com.gabriel85.Tarefa;
+package com.gabriel85.GenerateKey;
 
 import android.os.Build;
 import android.os.Bundle;

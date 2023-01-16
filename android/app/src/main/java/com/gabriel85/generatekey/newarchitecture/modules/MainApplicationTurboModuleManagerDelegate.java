@@ -1,4 +1,4 @@
-package com.gabriel85.Tarefa.newarchitecture.modules;
+package com.gabriel85.GenerateKey.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
