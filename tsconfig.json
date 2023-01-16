@@ -1,6 +1,10 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "@components/*": [
@@ -26,6 +30,9 @@
       ],
       "@services/*": [
         "./src/services/*"
+      ],
+      "@helpers/*": [
+        "./src/helpers/*"
       ],
     }
   }

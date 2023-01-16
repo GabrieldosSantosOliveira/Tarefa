@@ -9,7 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 import { generatePassword } from '@services/generatePassword';
 import { LinearGradient } from 'expo-linear-gradient';
 import { VStack, Text, HStack, Pressable, useToast } from 'native-base';
-import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import uuid from 'react-native-uuid';
 interface IForm {
@@ -18,7 +17,6 @@ interface IForm {
 }
 export const GeneratePasswordScreen = () => {
   const settingsPassword = usePassword();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { navigate } = useNavigation();
   const toast = useToast();
   const { handleSubmit, control } = useForm<IForm>({
@@ -39,7 +37,6 @@ export const GeneratePasswordScreen = () => {
         hasUpperCase,
         lengthPassword,
       } = settingsPassword;
-      setIsLoading(true);
       const realm = await getRealm();
       realm.write(() => {
         realm.create<IPasswordSchema>('Password', {
@@ -56,9 +53,6 @@ export const GeneratePasswordScreen = () => {
           }),
         });
       });
-      console.log(
-        '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n',
-      );
       realm.objects('Password').map((password) => {
         console.log(password);
       });
@@ -70,8 +64,6 @@ export const GeneratePasswordScreen = () => {
       });
     } catch (err) {
       console.log(err);
-    } finally {
-      setIsLoading(false);
     }
   };
   return (
@@ -129,11 +121,7 @@ export const GeneratePasswordScreen = () => {
           }}
         />
 
-        <Button
-          isLoading={isLoading}
-          onPress={handleSubmit(onHandleGeneratePassword)}
-          mt={4}
-        >
+        <Button onPress={handleSubmit(onHandleGeneratePassword)} mt={4}>
           Salvar senha
         </Button>
       </VStack>

@@ -1,4 +1,4 @@
-package com.gabriel85.Tarefa.newarchitecture;
+package com.gabriel85.GenerateKey.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.gabriel85.Tarefa.BuildConfig;
-import com.gabriel85.Tarefa.newarchitecture.components.MainComponentsRegistry;
-import com.gabriel85.Tarefa.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.gabriel85.GenerateKey.BuildConfig;
+import com.gabriel85.GenerateKey.newarchitecture.components.MainComponentsRegistry;
+import com.gabriel85.GenerateKey.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
