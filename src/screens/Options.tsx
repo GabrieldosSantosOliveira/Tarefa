@@ -3,13 +3,26 @@ import { Settings } from '@context/PasswordContext';
 import { usePassword } from '@hooks/usePassword';
 import { LinearGradient } from 'expo-linear-gradient';
 import { VStack, Slider, Text, Checkbox } from 'native-base';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 export const Options = () => {
   const settings = usePassword();
-  const { control } = useForm<Settings>({
-    defaultValues: settings,
+  const { control } = useForm<Pick<Settings, 'lengthPassword'>>({
+    defaultValues: {
+      lengthPassword: settings.lengthPassword,
+    },
   });
-
+  const [values, setValues] = useState<Omit<Settings, 'lengthPassword'>>({
+    hasUpperCase: settings.hasUpperCase,
+    hasLowerCase: settings.hasLowerCase,
+    hasNumbers: settings.hasNumbers,
+    hasSymbols: settings.hasSymbols,
+  });
+  function onChange(value: boolean, name: keyof typeof values) {
+    setValues((prev) => {
+      return { ...prev, [name]: value };
+    });
+  }
   return (
     <VStack flex={1} safeArea>
       <Header showBackButton title="Opções" />
@@ -57,82 +70,73 @@ export const Options = () => {
         />
         <Text mt={3}>Caracteres a serem utilizados</Text>
         <VStack flex={1} w="full" alignItems="flex-start">
-          <Controller
-            name="hasUpperCase"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                mt={4}
-                onChange={(value) => {
-                  settings.setSettings((prev) => {
-                    return { ...prev, hasUpperCase: value };
-                  });
-                  onChange(value);
-                }}
-                defaultIsChecked={value}
-                value="hasUpperCase"
-              >
-                ABC
-              </Checkbox>
-            )}
-          />
-          <Controller
-            name="hasLowerCase"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                mt={4}
-                onChange={async (value) => {
-                  settings.setSettings((prev) => {
-                    return { ...prev, hasLowerCase: value };
-                  });
-                  onChange(value);
-                }}
-                defaultIsChecked={value}
-                value="hasLowerCase"
-              >
-                abc
-              </Checkbox>
-            )}
-          />
-          <Controller
-            name="hasNumbers"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                mt={4}
-                onChange={(value) => {
-                  settings.setSettings((prev) => {
-                    return { ...prev, hasNumbers: value };
-                  });
-                  onChange(value);
-                }}
-                defaultIsChecked={value}
-                value="hasNumbers"
-              >
-                123
-              </Checkbox>
-            )}
-          />
-          <Controller
-            name="hasSymbols"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                mt={4}
-                onChange={(value) => {
-                  settings.setSettings((prev) => {
-                    return { ...prev, hasSymbols: value };
-                  });
-                  onChange(value);
-                }}
-                defaultIsChecked={value}
-                value="hasSymbols"
-              >
-                #$&
-              </Checkbox>
-            )}
-          />
+          <Checkbox
+            mt={4}
+            onChange={(value) => {
+              settings.setSettings((prev) => {
+                return { ...prev, hasUpperCase: value };
+              });
+              onChange(value, 'hasUpperCase');
+            }}
+            isDisabled={
+              Object.keys(values).length <= 1 && values.hasUpperCase === true
+            }
+            defaultIsChecked={values.hasUpperCase}
+            value="hasUpperCase"
+          >
+            ABC
+          </Checkbox>
+
+          <Checkbox
+            mt={4}
+            onChange={async (value) => {
+              settings.setSettings((prev) => {
+                return { ...prev, hasLowerCase: value };
+              });
+              onChange(value, 'hasLowerCase');
+            }}
+            isDisabled={
+              Object.keys(values).length <= 1 && values.hasLowerCase === true
+            }
+            defaultIsChecked={values.hasLowerCase}
+            value="hasLowerCase"
+          >
+            abc
+          </Checkbox>
+
+          <Checkbox
+            mt={4}
+            onChange={(value) => {
+              settings.setSettings((prev) => {
+                return { ...prev, hasNumbers: value };
+              });
+              onChange(value, 'hasNumbers');
+            }}
+            isDisabled={
+              Object.keys(values).length <= 1 && values.hasNumbers === true
+            }
+            defaultIsChecked={values.hasNumbers}
+            value="hasNumbers"
+          >
+            123
+          </Checkbox>
+
+          <Checkbox
+            mt={4}
+            onChange={(value) => {
+              settings.setSettings((prev) => {
+                return { ...prev, hasSymbols: value };
+              });
+              onChange(value, 'hasSymbols');
+            }}
+            isDisabled={
+              Object.keys(values).length <= 1 && values.hasSymbols === true
+            }
+            defaultIsChecked={values.hasSymbols}
+            value="hasSymbols"
+          >
+            #$&
+          </Checkbox>
         </VStack>
       </VStack>
     </VStack>
