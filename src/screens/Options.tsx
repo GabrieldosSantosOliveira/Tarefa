@@ -22,6 +22,9 @@ export const Options = () => {
     setValues((prev) => {
       return { ...prev, [name]: value };
     });
+    settings.setSettings((prev) => {
+      return { ...prev, [name]: value };
+    });
   }
   return (
     <VStack flex={1} safeArea>
@@ -55,8 +58,8 @@ export const Options = () => {
                   });
                 }}
                 w="full"
-                minValue={2}
-                maxValue={24}
+                minValue={1}
+                maxValue={50}
                 defaultValue={value}
                 step={1}
               >
@@ -79,7 +82,8 @@ export const Options = () => {
               onChange(value, 'hasUpperCase');
             }}
             isDisabled={
-              Object.keys(values).length <= 1 && values.hasUpperCase === true
+              Object.keys(values).filter((key) => values[key] === true)
+                .length === 1 && values.hasUpperCase === true
             }
             defaultIsChecked={values.hasUpperCase}
             value="hasUpperCase"
@@ -96,7 +100,8 @@ export const Options = () => {
               onChange(value, 'hasLowerCase');
             }}
             isDisabled={
-              Object.keys(values).length <= 1 && values.hasLowerCase === true
+              Object.keys(values).filter((key) => values[key] === true)
+                .length === 1 && values.hasLowerCase === true
             }
             defaultIsChecked={values.hasLowerCase}
             value="hasLowerCase"
@@ -113,7 +118,8 @@ export const Options = () => {
               onChange(value, 'hasNumbers');
             }}
             isDisabled={
-              Object.keys(values).length <= 1 && values.hasNumbers === true
+              Object.keys(values).filter((key) => values[key] === true)
+                .length === 1 && values.hasNumbers === true
             }
             defaultIsChecked={values.hasNumbers}
             value="hasNumbers"
@@ -130,7 +136,8 @@ export const Options = () => {
               onChange(value, 'hasSymbols');
             }}
             isDisabled={
-              Object.keys(values).length <= 1 && values.hasSymbols === true
+              Object.keys(values).filter((key) => values[key] === true)
+                .length === 1 && values.hasSymbols === true
             }
             defaultIsChecked={values.hasSymbols}
             value="hasSymbols"
