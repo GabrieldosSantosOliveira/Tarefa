@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { HStack, IconButton, Box, Heading } from 'native-base';
 import { CaretLeft } from 'phosphor-react-native';
+import { memo } from 'react';
 interface HeaderProps {
   title: string;
   showBackButton?: boolean;
 }
-export const Header = ({ title, showBackButton = false }: HeaderProps) => {
+const HeaderBase = ({ title, showBackButton = false }: HeaderProps) => {
   const { goBack } = useNavigation();
   const EmptyBoxSpace = () => <Box w={6} h={6} />;
   return (
@@ -32,3 +33,4 @@ export const Header = ({ title, showBackButton = false }: HeaderProps) => {
     </HStack>
   );
 };
+export const Header = memo(HeaderBase);
