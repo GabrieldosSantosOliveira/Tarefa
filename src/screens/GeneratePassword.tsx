@@ -9,6 +9,7 @@ import { usePassword } from '@hooks/usePassword';
 import { useNavigation } from '@react-navigation/native';
 import { generatePassword } from '@services/generatePassword';
 import { generatePasswordSchemaValidation } from '@validations/generatePassword';
+import * as Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   VStack,
@@ -17,7 +18,9 @@ import {
   Pressable,
   useToast,
   FormControl,
+  IconButton,
 } from 'native-base';
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import uuid from 'react-native-uuid';
 interface IForm {
@@ -28,6 +31,7 @@ export const GeneratePasswordScreen = () => {
   const settingsPassword = usePassword();
   const { navigate } = useNavigation();
   const toast = useToast();
+  const [password, setPassword] = useState<string>('');
   const {
     handleSubmit,
     control,
@@ -39,6 +43,23 @@ export const GeneratePasswordScreen = () => {
       emailOrPhone: '',
     },
   });
+  async function copyToClipboard() {
+    try {
+      await Clipboard.setStringAsync(password ?? '');
+      toast.show({
+        title: 'Senha copiada com sucesso!',
+        bg: 'green.500',
+        duration: 2000,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.show({
+        title: 'Erro ao copiar a senha!',
+        bg: 'red.400',
+        duration: 2000,
+      });
+    }
+  }
   const onHandleGeneratePassword = async ({
     application,
     emailOrPhone,
@@ -52,25 +73,24 @@ export const GeneratePasswordScreen = () => {
         lengthPassword,
       } = settingsPassword;
       const realm = await getRealm();
+      const newPassword = generatePassword({
+        length: lengthPassword,
+        hasLowerCase,
+        hasUpperCase,
+        hasNumbers,
+        hasSymbols,
+      });
+
       realm.write(() => {
         realm.create<IPasswordSchema>('Password', {
           _id: uuid.v4().toString(),
           application,
           emailOrPhone,
           created_at: new Date(),
-          password: generatePassword({
-            length: lengthPassword,
-            hasLowerCase,
-            hasUpperCase,
-            hasNumbers,
-            hasSymbols,
-          }),
+          password: newPassword,
         });
       });
-      realm.objects('Password').map((password) => {
-        console.log(password);
-      });
-
+      setPassword(newPassword);
       toast.closeAll();
       toast.show({
         title: 'Senha gerada com sucesso',
@@ -101,6 +121,24 @@ export const GeneratePasswordScreen = () => {
             <Text>Opções</Text>
           </Pressable>
         </HStack>
+        <Input
+          mt={4}
+          placeholder="Senha gerada"
+          value={password}
+          type="password"
+          InputRightElement={
+            <IconButton
+              icon={
+                <Feather
+                  name="clipboard"
+                  size={24}
+                  color="white"
+                  onPress={copyToClipboard}
+                />
+              }
+            />
+          }
+        />
         <FormControl isRequired isInvalid={'application' in errors}>
           <Controller
             name="application"
