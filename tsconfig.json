@@ -34,6 +34,9 @@
       "@helpers/*": [
         "./src/helpers/*"
       ],
+      "@validations/*": [
+        "./src/validations/*"
+      ],
     }
   }
 }
