@@ -1,7 +1,10 @@
 import { Spinner, Center } from 'native-base';
-export const Loading = () => {
+interface LoadingProps {
+  bg?: 'transparent';
+}
+export const Loading = ({ bg }: LoadingProps) => {
   return (
-    <Center flex={1} bg="gray.900">
+    <Center flex={1} bg={bg === 'transparent' ? null : 'gray.900'}>
       <Spinner size="lg" color="white" />
     </Center>
   );
