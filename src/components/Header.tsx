@@ -1,6 +1,6 @@
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { HStack, IconButton, Box, Heading } from 'native-base';
-import { CaretLeft } from 'phosphor-react-native';
 import { memo } from 'react';
 interface HeaderProps {
   title: string;
@@ -19,7 +19,9 @@ const HeaderBase = ({ title, showBackButton = false }: HeaderProps) => {
     >
       {showBackButton ? (
         <IconButton
-          icon={<CaretLeft weight="bold" size={24} color="white" />}
+          icon={
+            <AntDesign name="caretleft" weight="bold" size={24} color="white" />
+          }
           onPress={goBack}
         />
       ) : (
