@@ -25,7 +25,7 @@ export const PasswordView = ({ password }: PasswordViewProps) => {
   }
   return (
     <HStack alignItems="center" justifyContent="space-between" w="full">
-      <Text fontSize="md" mt={4}>
+      <Text fontSize="md" numberOfLines={1} flex={1}>
         {'*'.repeat(password?.length || 0)}
       </Text>
       <IconButton

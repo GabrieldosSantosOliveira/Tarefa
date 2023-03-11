@@ -26,7 +26,9 @@ const PasswordBase = ({ id, application, password }: IPasswordProps) => {
         borderBottomColor="white"
       >
         <Text fontSize="md">{application}</Text>
-        <Text fontSize="md">{'*'.repeat(password.length)}</Text>
+        <Text fontSize="md" numberOfLines={1}>
+          {'*'.repeat(password.length)}
+        </Text>
       </VStack>
     </TouchableOpacity>
   );
