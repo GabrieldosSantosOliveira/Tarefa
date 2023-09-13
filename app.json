@@ -28,7 +28,8 @@
       "package": "com.gabriel85.GenerateKey"
     },
     "ios": {
-      "userInterfaceStyle": "automatic"
+      "userInterfaceStyle": "automatic",
+      "bundleIdentifier": "com.gabriel85.GenerateKey"
     },
     "extra": {
       "eas": {
