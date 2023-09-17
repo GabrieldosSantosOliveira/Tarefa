@@ -7,16 +7,39 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@screens/*": ["./src/screens/*"],
-      "@databases/*": ["./src/databases/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@context/*": ["./src/context/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@services/*": ["./src/services/*"],
-      "@helpers/*": ["./src/helpers/*"],
-      "@validations/*": ["./src/validations/*"]
+      "@/@types/*": [
+        "./src/@types/*"
+      ],
+      "@/data/*": [
+        "./src/data/*"
+      ],
+      "@/databases/*": [
+        "./src/databases/*"
+      ],
+      "@/domain/*": [
+        "./src/domain/*"
+      ],
+      "@/helpers/*": [
+        "./src/helpers/*"
+      ],
+      "@/infra/*": [
+        "./src/infra/*"
+      ],
+      "@/main/*": [
+        "./src/main/*"
+      ],
+      "@/routes/*": [
+        "src/main/routes/*"
+      ],
+      "@/services/*": [
+        "./src/services/*"
+      ],
+      "@/shared/*": [
+        "./src/shared/*"
+      ],
+      "@/ui/*": [
+        "./src/ui/*"
+      ],
     }
   }
 }
