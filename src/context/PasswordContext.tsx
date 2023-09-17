@@ -36,11 +36,11 @@ export const PasswordProvider: FC<PasswordProviderProps> = ({ children }) => {
         );
         if (!settingsStorage) {
           const defaultSettings: Settings = {
-            hasLowerCase: false,
+            hasLowerCase: true,
             hasNumbers: true,
             hasSymbols: true,
             hasUpperCase: true,
-            lengthPassword: 10,
+            lengthPassword: 60,
           };
           await AsyncStorage.setItem(
             '@password-generator:settings',

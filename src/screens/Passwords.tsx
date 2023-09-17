@@ -1,5 +1,4 @@
 import { EmptyPasswordList } from '@components/EmptyPasswordList';
-import { Header } from '@components/Header';
 import { Input } from '@components/Input';
 import { Loading } from '@components/Loading';
 import { Password } from '@components/Password';
@@ -8,8 +7,8 @@ import { IPasswordSchema } from '@databases/schemas/PasswordSchema';
 import { FontAwesome } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { FlatList, VStack } from 'native-base';
 import { useCallback, useEffect, useState } from 'react';
+import { FlatList, View } from 'react-native';
 
 export const Passwords = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,9 +48,8 @@ export const Passwords = () => {
     filterPasswords();
   }, [filter, filterPasswords]);
   return (
-    <VStack flex={1} safeArea>
-      <Header title="Senhas Salvas" />
-      <VStack flex={1} p={5}>
+    <View flex={1} safeArea>
+      <View flex={1} p={5}>
         <LinearGradient
           colors={['#040F13', 'rgb(39, 39, 42)']}
           style={{
@@ -94,7 +92,7 @@ export const Passwords = () => {
             ListEmptyComponent={EmptyPasswordList}
           />
         )}
-      </VStack>
-    </VStack>
+      </View>
+    </View>
   );
 };

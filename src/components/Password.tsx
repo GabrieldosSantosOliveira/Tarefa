@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, VStack } from 'native-base';
 import { memo } from 'react';
+import { Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 interface IPasswordProps {
   id: string;
@@ -17,7 +17,7 @@ const PasswordBase = ({ id, application, password }: IPasswordProps) => {
         })
       }
     >
-      <VStack
+      <View
         h="20"
         w="full"
         justifyContent="space-between"
@@ -29,7 +29,7 @@ const PasswordBase = ({ id, application, password }: IPasswordProps) => {
         <Text fontSize="md" numberOfLines={1}>
           {'*'.repeat(password.length)}
         </Text>
-      </VStack>
+      </View>
     </TouchableOpacity>
   );
 };

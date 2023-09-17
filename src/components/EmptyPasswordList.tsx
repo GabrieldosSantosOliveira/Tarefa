@@ -1,19 +1,29 @@
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, Text, VStack } from 'native-base';
+import { Pressable, Text, View } from 'react-native';
+
 export const EmptyPasswordList = () => {
   const { navigate } = useNavigation();
   return (
-    <VStack flex={1} mt={7} justifyContent="center" alignItems="center">
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 28,
+      }}
+    >
       <Pressable onPress={() => navigate('home')}>
         <Text
-          fontSize="lg"
-          textAlign="justify"
-          fontFamily="Poppins_700Bold"
-          color="amber.200"
+          style={{
+            fontSize: 20,
+            textAlign: 'justify',
+            fontFamily: 'Poppins_700Bold',
+            color: '#fde68a',
+          }}
         >
           Nenhuma senha salva ainda tente adicionar uma nova senha
         </Text>
       </Pressable>
-    </VStack>
+    </View>
   );
 };

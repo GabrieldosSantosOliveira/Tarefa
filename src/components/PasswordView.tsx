@@ -1,11 +1,10 @@
 import { Feather } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
-import { HStack, IconButton, Text, useToast } from 'native-base';
+import { View, Text, TouchableOpacity } from 'react-native';
 interface PasswordViewProps {
   password?: string;
 }
 export const PasswordView = ({ password }: PasswordViewProps) => {
-  const toast = useToast();
   async function copyToClipboard() {
     try {
       await Clipboard.setStringAsync(password ?? '');
@@ -24,20 +23,18 @@ export const PasswordView = ({ password }: PasswordViewProps) => {
     }
   }
   return (
-    <HStack alignItems="center" justifyContent="space-between" w="full">
+    <View alignItems="center" justifyContent="space-between" w="full">
       <Text fontSize="md" numberOfLines={1} flex={1}>
         {'*'.repeat(password?.length || 0)}
       </Text>
-      <IconButton
-        icon={
-          <Feather
-            name="clipboard"
-            size={24}
-            color="white"
-            onPress={copyToClipboard}
-          />
-        }
-      />
-    </HStack>
+      <TouchableOpacity>
+        <Feather
+          name="clipboard"
+          size={24}
+          color="white"
+          onPress={copyToClipboard}
+        />
+      </TouchableOpacity>
+    </View>
   );
 };

@@ -1,11 +1,10 @@
-import { Header } from '@components/Header';
 import { PasswordView } from '@components/PasswordView';
 import { getRealm } from '@databases/realm';
 import { IPasswordSchema } from '@databases/schemas/PasswordSchema';
 import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Text, VStack } from 'native-base';
 import { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 
 interface RouteParams {
   id: string;
@@ -37,9 +36,8 @@ export const PasswordDetails = () => {
   }, [id]);
 
   return (
-    <VStack flex={1} safeArea>
-      <Header title="Senha" showBackButton />
-      <VStack flex={1} p={5}>
+    <View flex={1} safeArea>
+      <View flex={1} p={5}>
         <LinearGradient
           colors={['#040F13', 'rgb(39, 39, 42)']}
           style={{
@@ -63,7 +61,7 @@ export const PasswordDetails = () => {
         <Text fontSize="md" mt={4}>
           {password?.emailOrPhone}
         </Text>
-      </VStack>
-    </VStack>
+      </View>
+    </View>
   );
 };

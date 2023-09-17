@@ -1,11 +1,18 @@
-import { Spinner, Center } from 'native-base';
-interface LoadingProps {
-  bg?: 'transparent';
-}
-export const Loading = ({ bg }: LoadingProps) => {
+import { FC } from 'react';
+import { StyleSheet, ActivityIndicator, View, ViewProps } from 'react-native';
+export interface LoadingProps extends ViewProps {}
+export const Loading: FC<LoadingProps> = (props) => {
   return (
-    <Center flex={1} bg={bg === 'transparent' ? null : 'gray.900'}>
-      <Spinner size="lg" color="white" />
-    </Center>
+    <View {...props} style={styles.container}>
+      <ActivityIndicator size="large" color="white" />
+    </View>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#18181b',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
