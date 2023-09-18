@@ -4,7 +4,8 @@
  ## <p align="center"> Generator Key <a href="LICENSE"> <img  src="https://img.shields.io/static/v1?label=License&message=MIT&color=&labelColor=202024" alt="License"></a> </p>
 O Generator Key é uma aplicação que permite a criação de senhas seguras para ser utilizadas em outros aplicativos 
 ## 🔖 Demonstração
-https://user-images.githubusercontent.com/86084272/224494880-ac9f0c61-3d8e-458b-aabd-26ab9d911085.mp4
+https://github.com/GabrieldosSantosOliveira/Tarefa/assets/86084272/5dba8be0-dd20-4dca-b05c-ff6f6666d207
+
 
 ## 🛠️ Tecnologias
 - [TypeScript](https://www.typescriptlang.org/) 
@@ -14,12 +15,11 @@ https://user-images.githubusercontent.com/86084272/224494880-ac9f0c61-3d8e-458b-
 - [React Navigation](https://reactnavigation.org/)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
-- [Native Base](https://nativebase.io/)
+- [Expo Local Authentication](https://docs.expo.dev/versions/latest/sdk/local-authentication/)
+- [Realm](https://www.mongodb.com/docs/realm/sdk/react-native/)
 ## 🔨 Ferramentas Expo
-- [@expo-google-fonts](https://docs.expo.dev/guides/using-custom-fonts/)
 - [expo-linear-gradient](https://docs.expo.dev/versions/latest/sdk/linear-gradient/)
 - [expo-splash-screen](https://docs.expo.dev/guides/splash-screens/)
-- [@expo/vector-icons](https://docs.expo.dev/guides/icons/)
 - [expo-dev-client](https://docs.expo.dev/development/create-development-builds/)
 - [expo-clipboard](https://docs.expo.dev/versions/latest/sdk/clipboard/)
 
@@ -39,11 +39,11 @@ git clone https://github.com/GabrieldosSantosOliveira/Tarefa.git
 ```
 Instale as dependências
 ```
-yarn 
+npm i
 ```
 Execute com o expo
 ```
-yarn <android|ios> 
+npm run <android|ios> 
 ```
 ## 📝 License
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
