@@ -4,8 +4,8 @@ export const PasswordSchema = {
     _id: 'string',
     password: 'string',
     application: 'string',
-    emailOrPhone: 'string',
-    created_at: 'date',
+    identifier: 'string',
+    createdAt: 'date',
   },
   primaryKey: '_id',
 };

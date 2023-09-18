@@ -3,5 +3,5 @@ export interface PasswordDto {
   password: string;
   application: string;
   identifier: string;
-  created_at: Date;
+  createdAt: Date;
 }

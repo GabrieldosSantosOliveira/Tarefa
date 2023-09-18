@@ -9,7 +9,7 @@ export const Footer: FC<FooterProps> = ({ onPress }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <KeyViewFinder />
+        <KeyViewFinder isDark />
         <Text style={styles.text}>Criar nova senha</Text>
       </TouchableOpacity>
     </View>
@@ -17,7 +17,7 @@ export const Footer: FC<FooterProps> = ({ onPress }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(100, 100, 100, 1)',
+    backgroundColor: 'rgb(51, 51, 51)',
     height: 45,
     width: '100%',
     position: 'absolute',
@@ -26,5 +26,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   button: { flexDirection: 'row', alignItems: 'center' },
-  text: { fontFamily: 'SF-Pro-Display-Medium' },
+  text: {
+    fontFamily: 'SF-Pro-Display-Medium',
+    color: 'white',
+  },
 });

@@ -3,7 +3,12 @@ import { Button } from '@/ui/components/Button';
 import { ArrowCounterClockWise } from '@/ui/components/Icons/ArrowCounterClockWise';
 import { Input } from '@/ui/components/Input';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
+import {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 export interface ModalProps {
   onClose: () => void;
@@ -14,16 +19,25 @@ const ModalBase: ForwardRefRenderFunction<BottomSheetModal, ModalProps> = (
   ref,
 ) => {
   const [password, setPassword] = useState<string>('');
+  useEffect(() => {
+    const newPassword = generatePassword({
+      length: 100,
+      hasLowerCase: true,
+      hasNumbers: true,
+      hasSymbols: true,
+      hasUpperCase: true,
+    });
+    setPassword(newPassword);
+  }, []);
   return (
-    <BottomSheetModal ref={ref} snapPoints={['50%']}>
+    <BottomSheetModal
+      ref={ref}
+      snapPoints={['50%']}
+      backgroundStyle={{ backgroundColor: 'rgb(51, 51, 51)' }}
+      handleIndicatorStyle={{ backgroundColor: 'white' }}
+    >
       <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
+        <View style={styles.wrapper}>
           <Button title="Cancelar" onPress={onClose} />
           <TouchableOpacity
             onPress={() => {
@@ -38,9 +52,15 @@ const ModalBase: ForwardRefRenderFunction<BottomSheetModal, ModalProps> = (
               changePassword(newPassword);
             }}
           >
-            <ArrowCounterClockWise />
+            <ArrowCounterClockWise isDark />
           </TouchableOpacity>
-          <Button title="Usar" />
+          <Button
+            title="Usar"
+            onPress={() => {
+              changePassword(password);
+              onClose();
+            }}
+          />
         </View>
         <Input
           editable={false}
@@ -55,8 +75,15 @@ const ModalBase: ForwardRefRenderFunction<BottomSheetModal, ModalProps> = (
 export const Modal = forwardRef(ModalBase);
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgb(51, 51, 51)',
     flex: 1,
     paddingHorizontal: 12,
+    gap: 6,
+    paddingVertical: 6,
+  },
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

@@ -1,40 +1,37 @@
-import { Feather } from '@expo/vector-icons';
-import * as Clipboard from 'expo-clipboard';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+import { useClipBoard } from '../hooks/useClipBoard';
+import { SquareOnSquare } from './Icons/SquareOnSquare';
 interface PasswordViewProps {
-  password?: string;
+  password: string;
 }
 export const PasswordView = ({ password }: PasswordViewProps) => {
+  const { clipboard } = useClipBoard();
   async function copyToClipboard() {
-    try {
-      await Clipboard.setStringAsync(password ?? '');
-      toast.show({
-        title: 'Senha copiada com sucesso!',
-        bg: 'green.500',
-        duration: 2000,
-      });
-    } catch (error) {
-      console.log(error);
-      toast.show({
-        title: 'Erro ao copiar a senha!',
-        bg: 'red.400',
-        duration: 2000,
-      });
-    }
+    await clipboard.setString(password);
   }
   return (
-    <View alignItems="center" justifyContent="space-between" w="full">
-      <Text fontSize="md" numberOfLines={1} flex={1}>
-        {'*'.repeat(password?.length || 0)}
-      </Text>
-      <TouchableOpacity>
-        <Feather
-          name="clipboard"
-          size={24}
-          color="white"
-          onPress={copyToClipboard}
-        />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={copyToClipboard}>
+      <View style={styles.container}>
+        <Text style={styles.text}>{'*'.repeat(20)}</Text>
+        <SquareOnSquare isDark />
+      </View>
+    </TouchableOpacity>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    flexDirection: 'row',
+    backgroundColor: 'rgb(51, 51, 51)',
+    height: 44,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+  },
+  text: {
+    fontFamily: 'SF-Pro-Display-Bold',
+    color: 'white',
+  },
+});

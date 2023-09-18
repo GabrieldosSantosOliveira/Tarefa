@@ -1,13 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { memo } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 interface IPasswordProps {
   id: string;
-  password: string;
   application: string;
 }
-const PasswordBase = ({ id, application, password }: IPasswordProps) => {
+const PasswordBase = ({ id, application }: IPasswordProps) => {
   const { navigate } = useNavigation();
   return (
     <TouchableOpacity
@@ -17,20 +16,35 @@ const PasswordBase = ({ id, application, password }: IPasswordProps) => {
         })
       }
     >
-      <View
-        h="20"
-        w="full"
-        justifyContent="space-between"
-        py={2}
-        borderBottomWidth={1}
-        borderBottomColor="white"
-      >
-        <Text fontSize="md">{application}</Text>
-        <Text fontSize="md" numberOfLines={1}>
-          {'*'.repeat(password.length)}
+      <View style={styles.container}>
+        <Text style={styles.title}>{application}</Text>
+        <Text style={styles.subTitle} numberOfLines={1}>
+          {'*'.repeat(20)}
         </Text>
       </View>
     </TouchableOpacity>
   );
 };
 export const Password = memo(PasswordBase);
+const styles = StyleSheet.create({
+  container: {
+    height: 'auto',
+    width: '100%',
+    justifyContent: 'space-between',
+    gap: 6,
+    backgroundColor: 'rgb(51, 51, 51)',
+    borderRadius: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 6,
+  },
+  title: {
+    color: 'white',
+    fontFamily: 'SF-Pro-Display-SemiBold',
+    fontSize: 18,
+  },
+  subTitle: {
+    color: 'white',
+    fontFamily: 'SF-Pro-Display-SemiBold',
+    fontSize: 16,
+  },
+});

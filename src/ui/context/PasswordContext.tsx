@@ -56,10 +56,7 @@ export const PasswordProvider: FC<PasswordProviderProps> = ({
 
   useEffect(() => {
     async function setDefaultSettings() {
-      await storage.setItem(
-        '@password-generator:settings',
-        JSON.stringify(settings),
-      );
+      await storage.setItem('@password-generator:settings', settings);
     }
     startTransition(() => {
       setDefaultSettings();

@@ -4,6 +4,14 @@
     "slug": "GenerateKey",
     "version": "1.0.0",
     "privacy": "public",
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+        }
+      ]
+    ],
     "platforms": [
       "ios",
       "android"

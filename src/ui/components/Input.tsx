@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   input: {
-    borderRadius: 10,
+    borderRadius: 8,
     height: 44,
     width: '100%',
     backgroundColor: '#F2F2F7',

@@ -4,6 +4,7 @@ import { generatePasswordSchemaValidation } from '@/ui/validations/generatePassw
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigation } from '@react-navigation/native';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
@@ -23,6 +24,7 @@ export const GeneratePasswordScreen = ({
   savePasswordUseCase,
 }: GeneratePasswordProps) => {
   const modalRef = useRef<BottomSheetModal>(null);
+  const { navigate } = useNavigation();
   const [showFooter, setShowFooter] = useState<boolean>(false);
   const {
     handleSubmit,
@@ -34,6 +36,7 @@ export const GeneratePasswordScreen = ({
   });
   const onHandleGeneratePassword = async (data: IForm) => {
     await savePasswordUseCase.execute(data);
+    navigate('passwords');
   };
   return (
     <BottomSheetModalProvider>

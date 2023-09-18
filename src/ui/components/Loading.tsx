@@ -10,7 +10,7 @@ export const Loading: FC<LoadingProps> = (props) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#18181b',
+    backgroundColor: 'black',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

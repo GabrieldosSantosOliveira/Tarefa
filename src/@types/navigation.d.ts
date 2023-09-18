@@ -1,10 +1,10 @@
+export interface Routes {
+  home: undefined;
+  passwords: undefined;
+  passwordDetails: { id: string };
+}
 export declare global {
   namespace ReactNavigation {
-    interface RootParamList {
-      home: undefined;
-      passwords: undefined;
-      options: undefined;
-      passwordDetails: { id: string };
-    }
+    interface RootParamList extends Routes { }
   }
 }
